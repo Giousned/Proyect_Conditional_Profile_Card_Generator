@@ -1,4 +1,5 @@
 import "../style/index.css";
+import "../Breaking.jpg";
 
 /**
  *  EDIT ONLY INSIDE THIS RENDER FUNCTION
@@ -22,24 +23,50 @@ import "../style/index.css";
         city: null
     }
  */
-function render(variables = {}) {
-  console.log("These are the current variables: ", variables); //print on the console
-  // here we ask the logical questions to make decisions on how to build the html
-  // if includeCover==false then we reset the cover code without the <img> tag to make the cover transparent.
-  let cover = `<div class="cover"><img src="https://images.unsplash.com/photo-1511974035430-5de47d3b95da"/></div>`;
-  if (variables.includeCover == false) cover = "<div class='cover'></div>";
 
-  // reset the website body with the new html output
+function elegirPais(ciudad) {
+  const select = document.querySelector("#country");
+  switch (ciudad) {
+    case "Miami":
+      window.variables.country = select.value = "USA";
+      break;
+    case "Munich":
+      window.variables.country = select.value = "Germany";
+      break;
+    case "Caracas":
+      window.variables.country = select.value = "Venezuela";
+      break;
+    case "Toronto":
+      window.variables.country = select.value = "Canada";
+      break;
+    case "City":
+      window.variables.country = select.value = "";
+      window.variables.city = "";
+      window.variables.country = "";
+      break;
+    // default:
+    //   window.variables.country = select.value = "";
+    //   break;
+  }
+  return window.variables.country;
+}
+
+function render(variables = {}) {
+  //  console.log("These are the current variables: ", variables);
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
-            ${cover}
+          ${
+            variables.includeCover
+              ? `<div class="cover"><img src="${variables.background}" /></div>`
+              : "<div class='cover'></div>"
+          }
           <img src="${variables.avatarURL}" class="photo" />
           <h1>${variables.name ? variables.name : "Name"} ${
     variables.lastname ? variables.lastname : "Lastname"
   }</h1>
           <h2>${variables.role ? variables.role : "Role"}</h2>
           <h3>${variables.city ? variables.city : "City"} - ${
-    variables.country ? variables.country : "Country"
-  }</h3>
+    variables.city ? elegirPais(variables.city) : ""
+  }${variables.country ? "" : "Country"}</h3>
           <ul class="${
             variables.socialMediaPosition ? variables.socialMediaPosition : ""
           }">
@@ -74,9 +101,10 @@ window.onload = function() {
     // if includeCover is true the algorithm should
     includeCover: true,
     // this is the url of the image that will used as background for the profile cover
-    background: "https://images.unsplash.com/photo-1511974035430-5de47d3b95da",
+    background:
+      "https://img.freepik.com/vector-gratis/fondo-paisaje-bosque-silueta_1308-75034.jpg?w=360", // https://images.unsplash.com/photo-1511974035430-5de47d3b95da
     // this is the url for the profile avatar
-    avatarURL: "https://randomuser.me/api/portraits/women/42.jpg",
+    avatarURL: "../Breaking.jpg", // https://w7.pngwing.com/pngs/309/405/png-transparent-avatar-bad-breaking-chemisrty-heisenberg-avatars-xmas-giveaway-icon.png // https://randomuser.me/api/portraits/women/42.jpg
     // social media bar position (left or right)
     socialMediaPosition: "position-left",
     // social media usernames
@@ -109,3 +137,15 @@ window.onload = function() {
     });
   });
 };
+
+/*
+  console.log("These are the current variables: ", variables); //print on the console
+  // here we ask the logical questions to make decisions on how to build the html
+  // if includeCover==false then we reset the cover code without the <img> tag to make the cover transparent.
+  let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
+  if (variables.includeCover == false) cover = "<div class='cover'></div>";
+
+  // reset the website body with the new html output
+  document.querySelector("#widget_content").innerHTML = `<div class="widget">
+            ${cover}
+*/
