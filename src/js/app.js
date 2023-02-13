@@ -44,6 +44,9 @@ function elegirPais(ciudad) {
       window.variables.city = "";
       window.variables.country = "";
       break;
+    default:
+      window.variables.country;
+      break;
     // default:
     //   window.variables.country = select.value = "";
     //   break;
@@ -65,8 +68,8 @@ function render(variables = {}) {
   }</h1>
           <h2>${variables.role ? variables.role : "Role"}</h2>
           <h3>${variables.city ? variables.city : "City"} - ${
-    variables.city ? elegirPais(variables.city) : ""
-  }${variables.country ? "" : "Country"}</h3>
+    variables.country ? elegirPais(variables.city) : "Country"
+  }</h3>
           <ul class="${
             variables.socialMediaPosition ? variables.socialMediaPosition : ""
           }">
